@@ -63,8 +63,9 @@ echo "----------------------------------------------------------------"
 echo "Realizando llamadas API a Dynatrace..."
 
 # Llamada a la API de Dynatrace para obtener entidades
+# backup de la linea 68, se cambia de mzName (management zone name) a un filtro por mzId (id de la management zone) //   "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzName%28%22${MZ_NAME}%22%29&from=-4w&to=now" \
 entities_response=$(curl -s -X 'GET' \
-  "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzName%28%22${MZ_NAME}%22%29&from=-4w&to=now" \
+  "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzId%28${MZ_NAME}%29&from=-4w&to=now" \
   -H "accept: application/json; charset=utf-8" \
   -H "Authorization: Api-Token ${DT_TOKEN}")
 
