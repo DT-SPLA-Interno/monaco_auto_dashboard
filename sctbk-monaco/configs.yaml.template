@@ -1,5 +1,5 @@
 configs:
-- id: ${MZ_NAME}_DASHBOARD_MICROSERVICE
+- id: ${MZ_ID}_DASHBOARD_MICROSERVICE
   type:
     api: dashboard
   config:
