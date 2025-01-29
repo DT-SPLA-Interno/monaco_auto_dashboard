@@ -60,6 +60,7 @@ for prog in "${programs[@]}"; do
 done
 echo "curl version:"
 curl --version
+curl -V
 echo "----------------------------------------------------------------"
 
 echo "Realizando llamadas API a Dynatrace..."
@@ -68,7 +69,11 @@ echo "Realizando llamadas API a Dynatrace..."
 # backup mzName (management zone name) "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzName%28%22${MZ_NAME}%22%29&from=-4w&to=now" \
 # backup mzId (id de la management zone)  "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzId%28${MZ_NAME}%29&from=-4w&to=now" \
 entities_response=$(curl -s -X 'GET' \
-  "${DT_URL}/api/v2/entities?pageSize=500&entitySelector=type%28%22SERVICE%22%29%2CmzName%28%22${MZ_NAME}%22%29&from=-4w&to=now" \
+  --data-urlencode "pageSize=500" \
+  --data-urlencode "entitySelector=type(SERVICE),mzName(${MZ_NAME})" \
+  --data-urlencode "from=-4w" \
+  --data-urlencode "to=now" \
+  "${DT_URL}/api/v2/entities" \
   -H "accept: application/json; charset=utf-8" \
   -H "Authorization: Api-Token ${DT_TOKEN}")
 
