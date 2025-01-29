@@ -58,6 +58,8 @@ for prog in "${programs[@]}"; do
         echo "...." $($prog --version)
     fi
 done
+echo "curl version:"
+curl --version
 echo "----------------------------------------------------------------"
 
 echo "Realizando llamadas API a Dynatrace..."
