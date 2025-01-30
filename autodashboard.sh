@@ -89,8 +89,7 @@ else
     mz_response=$(curl -s -X 'GET' "${DT_URL}/api/v2/entities/${service_id_0}?from=-4w&to=now" \
       -H "accept: application/json; charset=utf-8" \
       -H "Authorization: Api-Token ${DT_TOKEN}")
-    MZ_ID=$(echo "$mz_response" | jq -r '.managementZones[0].id')
-    # Pendiente agregar logica de validación de solo traer el id, donde el .managementZones[N].name sea igual a ${MZ_NAME}
+    MZ_ID=$(echo "$mz_response" | jq -r --arg MZ_NAME "$MZ_NAME" '.managementZones[] | select(.name == $MZ_NAME) | .id')
     echo "Management zone ID = ${MZ_ID}"
     export MZ_ID
     echo "----------------------------------------------------------------"
